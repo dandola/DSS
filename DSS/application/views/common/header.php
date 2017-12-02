@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Hệ trợ giúp quyết định - Nhóm 5</title>
 
 
 <!-- Bootstrap Core CSS -->

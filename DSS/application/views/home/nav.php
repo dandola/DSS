@@ -8,6 +8,16 @@
             </button>
             <a class="navbar-brand" href="<?php echo base_url() ?>">Trợ giúp thí sinh lựa chọn ngành nghề</a>
         </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <?php if($this->session->userdata('login')) {?>
+            <li><?php echo $this->session->userdata('login')?></li>
+            <li><a href="<?php echo base_url('login/logout');?>">Đăng xuất</a><li>
+            <?php } else{ ?>
+            <li><a href="<?php echo base_url('login') ?>">Đăng nhập</a></li>
+            <?php }?>
+            <!-- <li><a href="">Đăng xuất</a></li> -->
+        </ul>
+
         <!-- /.navbar-header -->
 
         <div class="navbar-default sidebar" role="navigation">
@@ -27,6 +37,7 @@
                     <li>
                         <a href="<?php echo base_url('') ?>"><i class="fa fa-dashboard fa-fw"></i> Tư vấn Ngành nghề</a>
                     </li>
+                    <?php if($this->session->userdata('login')){ ?>
                     <li>
                         <a href="#"><i class="fa fa-th-large"></i> Quản lý Ngành<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -60,6 +71,7 @@
                             </li>
                         </ul>
                     </li>
+                    <?php } ?>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

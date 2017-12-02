@@ -1,5 +1,5 @@
 <?php
-class Manage_env_var extends CI_Controller{
+class Manage_env_var extends MY_Controller{
 	 public function __construct(){
         parent::__construct();
         $this->load->model('env_var_model');

@@ -19,9 +19,9 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
-                            <tr align="center">
+                            <tr>
                                 <th>id</th>
                                 <th>Tên trường</th>
                                 <th>địa chỉ</th>
@@ -36,9 +36,9 @@
                                 <td><?php echo $school->id; ?></td>
                                 <td><?php echo $school->name; ?></td>
                                 <td><?php echo $school->address; ?></td>
-                                <td class="center"><?php echo $school->logo; ?></td>
-                                <td class="text-center"><a href="<?php echo base_url('delete_school');?>/<?php echo $school->id;?>"><button class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá không');"><li class="fa fa-trash-o"></li></button></a></td>
-                                <td class="text-center"><a href="<?php echo base_url('edit_school'); ?>/<?php echo $school->id;?>"><button class="btn btn-warning"><li class="fa fa-edit"></li></button></a></td>
+                                <td ><?php echo $school->logo; ?></td>
+                                <td ><a href="<?php echo base_url('delete_school');?>/<?php echo $school->id;?>"><button class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá không');"><li class="fa fa-trash-o"></li></button></a></td>
+                                <td><a href="<?php echo base_url('edit_school'); ?>/<?php echo $school->id;?>"><button class="btn btn-warning"><li class="fa fa-edit"></li></button></a></td>
                             </tr>
                             <?php } ?>
                             </tbody>

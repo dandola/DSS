@@ -1,5 +1,7 @@
 <?php
-class Manage_major extends CI_Controller{
+defined('BASEPATH') OR exit('No direct script access allowed');
+require_once("application/core/MY_Controller.php");
+class Manage_major extends MY_Controller{
 	public function __construct(){
         parent::__construct();
         $this->load->model('major_model');

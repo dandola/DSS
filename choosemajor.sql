@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2017 at 06:43 PM
+-- Generation Time: Dec 02, 2017 at 06:06 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -19,6 +19,25 @@ SET time_zone = "+00:00";
 --
 -- Database: `choosemajor`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `account_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`account_name`, `password`) VALUES
+('admin', 'admin'),
+('admin123', '123');
 
 -- --------------------------------------------------------
 
@@ -43,8 +62,7 @@ INSERT INTO `env_var` (`id`, `name`, `type`, `weight`) VALUES
 (3, 'độ lệch 2', 'X3', 0.25),
 (4, 'Sở thích', 'X4', 0.2),
 (5, 'Cơ hội làm việc', 'X5', 0.1),
-(6, 'tỉ lệ giới tính', 'X6', 0.05),
-(10, 'anhdan', 'anhdan', 0.8);
+(6, 'tỉ lệ giới tính', 'X6', 0.05);
 
 -- --------------------------------------------------------
 
@@ -93,9 +111,7 @@ INSERT INTO `major` (`id`, `school_id`, `name`, `sign`, `reference_1`, `referenc
 (21, 1, 'Hóa - Sinh - Thực phẩm và Môi trường', 'T5', 7.93, 25, 950, 0.75, 0.45, ''),
 (22, 1, 'kinh tế quản lý', 'B6', 7.47, 24.25, 140, 0.65, 0.4, ''),
 (23, 1, 'vật liệu', 'T7', 7.66, 23.75, 200, 0.5, 0.75, ''),
-(24, 1, 'kỹ thuật dệt may', 'T8', 7.73, 24.5, 180, 0.55, 0.35, ''),
-(25, 1, 'Nguyễn Văn Đàn', 'qưeq', 34, 2, 23, 1, 1, '24'),
-(26, 1, 'Nguyễn Văn nhưng', 'qưeq', 34, 2, 2147483647, 1, 1, '24');
+(24, 1, 'kỹ thuật dệt may', 'T8', 7.73, 24.5, 180, 0.55, 0.35, '');
 
 -- --------------------------------------------------------
 
@@ -123,6 +139,12 @@ INSERT INTO `school` (`id`, `name`, `address`, `logo`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`account_name`);
 
 --
 -- Indexes for table `env_var`

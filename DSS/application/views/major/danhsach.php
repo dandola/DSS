@@ -29,6 +29,7 @@
                                 <th>điểm chuẩn 2017</th>
                                 <th>chỉ tiêu</th>
                                 <th>cơ hội làm việc</th>
+                                <th>id trường</th>
                                 <th>tỉ lệ nam</th>
                                 <td>Xoá</td>
                                 <td>Sửa</td>
@@ -36,17 +37,18 @@
                             </thead>
                             <tbody>
                             <?php foreach($majors as $major){ ?>
-                            <tr class="odd gradeX">
+                            <tr class="odd gradeC">
                                 <td><?php echo $major->id; ?></td>
                                 <td><?php echo $major->name; ?></td>
                                 <td><?php echo $major->sign; ?></td>
-                                <td class="center"><?php echo $major->reference_1; ?></td>
-                                <td class="center"><?php echo $major->reference_2; ?></td>
+                                <td ><?php echo $major->reference_1; ?></td>
+                                <td><?php echo $major->reference_2; ?></td>
                                 <td><?php echo $major->amount; ?></td>
-                                <td class="center"><?php echo $major->work_opportunity; ?></td>
-                                <td class="center"><?php echo $major->rate_of_male;?></td>
-                                <td><a href="<?php echo base_url('delete_major');?>/<?php echo $major->id;?>"><button class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá không');"><li class="fa fa-trash-o"></li></button></a></td>
-                                <td><a href="<?php echo base_url('edit_major'); ?>/<?php echo $major->id;?>"><button class="btn btn-warning"><li class="fa fa-edit"></li></button></a></td>
+                                <td ><?php echo $major->work_opportunity; ?></td>
+                                <td ><?php echo $major->school_id; ?></td>
+                                <td ><?php echo $major->rate_of_male;?></td>
+                                <td class="center"><a href="<?php echo base_url('delete_major');?>/<?php echo $major->id;?>"><button class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá không');"><li class="fa fa-trash-o"></li></button></a></td>
+                                <td class="center"><a href="<?php echo base_url('edit_major'); ?>/<?php echo $major->id;?>"><button class="btn btn-warning"><li class="fa fa-edit"></li></button></a></td>
                             </tr>
                             <?php } ?>
                             </tbody>

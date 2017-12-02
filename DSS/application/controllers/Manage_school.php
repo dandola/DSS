@@ -1,5 +1,5 @@
 <?php
-class Manage_school extends CI_Controller{
+class Manage_school extends MY_Controller{
 	public function __construct(){
         parent::__construct();
         $this->load->model('school_model');
