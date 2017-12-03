@@ -34,6 +34,15 @@ $(document).ready(function(){
              data: dataString, // serializes the form's elements.
              success: function(response){
                console.log(JSON.parse(response));
+               var list_major=JSON.parse(response);
+               var str="";
+               for (var i = 0; i < list_major.length; i++) {
+                   str+="<div class='text-muted'> Ngành " + (i+1) +":</div><br>"
+                   + "<div><span class='text-info' >Tên ngành</span> : "+ list_major[i].name + "</div>"
+                   + "<div><span class='text-info'>độ phù hợp</span> : "+ list_major[i].value + "</div><hr>";
+                }
+                document.getElementById('result').innerHTML=str;
+               document.getElementById('show').style.display='block';
              }
           });
           return false;

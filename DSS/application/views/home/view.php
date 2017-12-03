@@ -129,13 +129,27 @@
                                 </li>
                             </ul>
                             <div class="row text-center">
-                                <button  type="submit" class="btn btn-success">Xem kết quả</button>
+                                <button  type="submit"  class="btn btn-success btn-lg">Xem kết quả</button>
                             </div>
                         </form>
                     </div>
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
+                <div class="row"  id="show" style="display: none;">
+                    <div class="row text-center">
+                        <a href="<?php base_url('main');?>"><div class="btn btn-danger"> reset</div></a>
+                    </div>
+                    <div class="col-md-10">
+                        <div id="result">
+
+                            
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+
             </div>
 
 
