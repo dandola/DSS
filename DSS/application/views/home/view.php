@@ -23,7 +23,7 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <form id="show_result"  method="post" enctype="multipart/form-data">
+                        <form id="show_result" method="post" enctype="multipart/form-data">
                             <ul class="timeline">
                                 <li>
                                     <div class="timeline-badge"><i class="fa fa-check"></i>
@@ -99,9 +99,9 @@
                                         <div class="timeline-body">
                                             <div class="form-group">
                                                 <label>Trường bạn đã chọn là:</label>
-                                                <select name="school_id" class="form-control school_id">   
+                                                <select name="school_id" class="form-control school_id">  
+                                                 <option value="0" selected disabled> Chọn trường</option> 
                                                    <?php foreach($schools as $school){ ?>
-                                                   <!-- <option value="0" selected> Chọn trường</option> -->
                                                    <option value="<?php echo $school->id; ?>"><?php echo $school->name ?></option>
                                                    <?php } ?>
                                                 </select>
@@ -121,11 +121,7 @@
                                             <div class="form-group">
                                                 <label>lựa chọn các Ngành mà bạn muốn vào</label>
                                                 <select multiple="multiple" name="majors[]" class="form-control major">
-                                                    <option value="1">Công nghệ thông tin</option>
-                                                    <option value="2">Kinh tế</option>
-                                                    <option value="3">cơ khí</option>
-                                                    <option value="4">điện tử viễn thông</option>
-                                                    <option value="5">kỹ thuật vật liệu</option>
+
                                                 </select>
                                             </div>
                                         </div>

@@ -44,22 +44,28 @@ class Main extends CI_Controller{
         $prior=$this->input->post("prior");
         $school_id=$this->input->post("school_id");
         $majors= $this->input->post("majors");
-
+        // echo "đầu vào: ";
+        // echo "toán: ".$math."   lý: ".$physics."  hoá: ".$other."  điểm ưu tiên".($area_point+ $prior);
+        // echo "các ngành: ";
+        // var_dump($majors);
+        // echo "<br>";     
         if(!empty($school_id) && is_numeric($school_id)){
             $result = $this->make_decision($gender,$math,$physics,$other,$area_point,$prior,$school_id,$majors);
             if($result){
-              echo json_encode($result);
+                usort($result, function($a, $b) {
+                     return $a['value'] < $b['value'];
+                }); 
+                echo json_encode($result);
             }
         }
         
     }
 
     public function make_decision($gender,$math,$physics,$other,$area_point,$prio,$schoolid,$majors){
-        $scores = array('math' => intval($math), 'physics' => intval($physics), 'other' => intval($other), 'prior' => ($area_point + $prio));
+        $scores = array('math' => floatval ($math), 'physics' => floatval ($physics), 'other' => floatval ($other), 'prior' => ($area_point + $prio));
         $school_id = intval($schoolid);
         $major_chosen = $majors;
         $sex =intval($gender);
-
         //step 0
         $majors = $this->major_model->get_list_by_school_id($school_id);
         // major_id follow ascending order.
@@ -67,15 +73,26 @@ class Main extends CI_Controller{
 
         //chuyen vi vector de de tinh toan hon
         $transpose_initial_arr = $this->transpose_array($initial_arr);
+        // echo "<br>buoc 0: chuan vi de tinh toan";
+        // echo "<pre>";
+        // var_dump($transpose_initial_arr);
 
         // step 1: normalize values by normalized vector
         $normalized_arr = $this->normalized_vector($transpose_initial_arr);
+        // echo "<br>bước 1: chuẩn hoá vecto: ";
+        // echo "<pre>";
+        // var_dump($normalized_arr);
 
         //step 2: calculate by weights
         $normalized_arr = $this->calculate_by_weights($normalized_arr);
-
+        // echo "<br>bước 2: tính giá trị theo trọng số: ";
+        // echo "<pre>";
+        // var_dump($normalized_arr);
         //step 3: calculate ideal solutions
         $ideal_solutions_arr = $this->calculate_ideal_arr($normalized_arr);
+        // echo "<br>bước 3: các giải pháp lý tưởng: ";
+        // echo "<pre>";
+        // var_dump($ideal_solutions_arr);
 
         // chuyen vi lai vector chuan hoa de tinh toan
         $transpose_normalized_arr = $this->transpose_array($normalized_arr);
@@ -83,10 +100,14 @@ class Main extends CI_Controller{
 
         //step 4: calculate to ideal solutions
         $distance_to_ideal_solutions_arr = $this->calculate_to_ideal_solutions($ideal_solutions_arr, $transpose_normalized_arr);
-
+        // echo "<br>bước 4: tính khoảng cách tới giải pháp lý tưởng: ";
+        // echo "<pre>";
+        // var_dump($distance_to_ideal_solutions_arr);
         //step 5: calculate familiar measures to ideal solutions
         $familar_measures_arr = $this->calculate_familiar_measures_to_ideal_sol($distance_to_ideal_solutions_arr);
-
+        // echo "<br>bước 5: độ đo tương ứng tới giải pháp lý tưởng: ";
+        // echo "<pre>";
+        // var_dump($familar_measures_arr);
         // add id for major and order by familiar measures
         $result = $this->add_id_and_order_array($familar_measures_arr, $major_chosen, $majors);
         if(!empty($result)){
@@ -109,6 +130,8 @@ class Main extends CI_Controller{
 
             // get total score
             $scores = $this->count_score($school_id, $scores);
+            // echo "điểm 2016: ".$scores['score_1'];
+            // echo " điểm 2017: ".$scores['score_2'];
             // init data
             $initial_arr = array();
             foreach ($majors as &$major){
@@ -145,7 +168,7 @@ class Main extends CI_Controller{
 
     private function calculate_by_weights($data){
         if(!empty($data)){
-            $weights = $this->env_var_model->get_weights_by_types(array(AMOUNT, BIAS_1, BIAS_1, HOBBY, WORK_OPPORTUNITY, SEX));
+            $weights = $this->env_var_model->get_weights_by_types(array(AMOUNT, BIAS_1, BIAS_2, HOBBY, WORK_OPPORTUNITY, SEX));
             for($i = 0; $i < count($weights); $i++){
                 $data[$i] = $this->multiple_weight($data[$i], $weights[$i]["weight"]);
             }
@@ -232,12 +255,15 @@ class Main extends CI_Controller{
             $score_1 = 0;
             $score_2 = 0;
             if($id == 1){
+                // echo "HUST <br>";
                 $score_1 = round(($scores['math'] + $scores['physics'] + $scores['other']+ $scores['prior'])*1.0/3, 2) ;
                 $score_2 = round(($scores['math']*2 + $scores['physics'] + $scores['other'])*0.75 + $scores['prior']*1.0/3, 2) ;
-            }else if($id == 3){
+            }elseif($id == 3){
+                // echo "NUCE <br>";
                 $score_1 = round(($scores['math']*2 + $scores['physics'] + $scores['other'])*0.25  + $scores['prior']*1.0/3,2);
                 $score_2 = round(($scores['math'] + $scores['physics'] + $scores['other'])*0.75, 2) + $scores['prior'];
             }else {
+                // echo "ORTHER <br>";
                 $score_1 =  round($scores['math'] + $scores['physics'] + $scores['other'], 2) + $scores['prior'];
                 $score_2 = $score_1;
             }
