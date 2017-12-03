@@ -15,12 +15,22 @@ class Main extends CI_Controller{
     }
 
     public function index(){
-        $this->load->view('home/view');
-        // $this->make_decision();
+        $this->data['schools']=$this->school_model->get_all();
+        $this->load->view('home/view',$this->data);
+
+    }
+    public function load_major(){
+        $school_id=$this->input->post('school_id');
+        if(isset($school_id)){
+                $data=$this->major_model->get_list_by_school_id($school_id);
+                foreach ($data as $major) {
+                    echo '<option value='.$major->id.'>'.$major->name.'</option>';
+                }
+
+            }
     }
     public function manage(){
         $this->data['schools']=$this->school_model->get_all();
-      
          $this->data['env_vars']=$this->env_var_model->get_all();
         
     }
@@ -34,20 +44,14 @@ class Main extends CI_Controller{
         $prior=$this->input->post("prior");
         $school_id=$this->input->post("school_id");
         $majors= $this->input->post("majors");
+
         if(!empty($school_id) && is_numeric($school_id)){
             $result = $this->make_decision($gender,$math,$physics,$other,$area_point,$prior,$school_id,$majors);
             if($result){
-                return json_encode(array(
-                    'status' => 'SUCCESS',
-                    'result' => $result
-                ));
-                die();
+              echo json_encode($result);
             }
         }
-        return json_encode(array(
-                'status' => 'FAIL',
-                'message' => 'Check variables again'
-            ));
+        
     }
 
     public function make_decision($gender,$math,$physics,$other,$area_point,$prio,$schoolid,$majors){
@@ -227,10 +231,10 @@ class Main extends CI_Controller{
         if(isset($id) && isset($scores)){
             $score_1 = 0;
             $score_2 = 0;
-            if($id == HUST){
+            if($id == 1){
                 $score_1 = round(($scores['math'] + $scores['physics'] + $scores['other']+ $scores['prior'])*1.0/3, 2) ;
                 $score_2 = round(($scores['math']*2 + $scores['physics'] + $scores['other'])*0.75 + $scores['prior']*1.0/3, 2) ;
-            }else if($id == NUCE){
+            }else if($id == 3){
                 $score_1 = round(($scores['math']*2 + $scores['physics'] + $scores['other'])*0.25  + $scores['prior']*1.0/3,2);
                 $score_2 = round(($scores['math'] + $scores['physics'] + $scores['other'])*0.75, 2) + $scores['prior'];
             }else {

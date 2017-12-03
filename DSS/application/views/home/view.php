@@ -23,7 +23,7 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <form id="show_result">
+                        <form id="show_result"  method="post" enctype="multipart/form-data">
                             <ul class="timeline">
                                 <li>
                                     <div class="timeline-badge"><i class="fa fa-check"></i>
@@ -99,10 +99,11 @@
                                         <div class="timeline-body">
                                             <div class="form-group">
                                                 <label>Trường bạn đã chọn là:</label>
-                                                <select name="school_id" class="form-control">
-                                                    <option value="1" selected>Đại Học Bách Khoa Hà Nội (bka)</option>
-                                                    <option value="3">Đại Học Xây Dựng (nuce)</option>
-                                                    <option value="2">Đại Học Kinh Tế Quốc Dân (neu)</option>
+                                                <select name="school_id" class="form-control school_id">   
+                                                   <?php foreach($schools as $school){ ?>
+                                                   <!-- <option value="0" selected> Chọn trường</option> -->
+                                                   <option value="<?php echo $school->id; ?>"><?php echo $school->name ?></option>
+                                                   <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -119,7 +120,7 @@
                                         <div class="timeline-body">
                                             <div class="form-group">
                                                 <label>lựa chọn các Ngành mà bạn muốn vào</label>
-                                                <select multiple="multiple" name="majors[]" class="form-control">
+                                                <select multiple="multiple" name="majors[]" class="form-control major">
                                                     <option value="1">Công nghệ thông tin</option>
                                                     <option value="2">Kinh tế</option>
                                                     <option value="3">cơ khí</option>
