@@ -52,12 +52,19 @@ class Main extends CI_Controller{
         if(!empty($school_id) && is_numeric($school_id)){
             $result = $this->make_decision($gender,$math,$physics,$other,$area_point,$prior,$school_id,$majors);
             if($result){
-                usort($result, function($a, $b) {
-                     return $a['value'] < $b['value'];
-                }); 
-                echo json_encode($result);
+                echo json_encode(array(
+                        'status' => 'SUCCESS',
+                        'result' => $result
+                    ));
+                die();
             }
         }
+
+        echo json_encode(array(
+                'status' => 'FAIL',
+                'message' => 'school id must not be null'
+            )
+        );
         
     }
 
@@ -120,13 +127,6 @@ class Main extends CI_Controller{
     private function init_variables($school_id, $major_chosen, $scores, $sex, $majors){
         if($majors){
             $num_major = count($majors);
-            // // index for hobbies
-            // $hobbies = array();
-            // for($i = 0; $i < $num_major; $i++){
-            //     $id = "" . $major_chosen[$i];
-            //     $hobbies[$id] = $num_major-$i;
-            // }
-            // ksort($hobbies, SORT_NUMERIC);
 
             // get total score
             $scores = $this->count_score($school_id, $scores);

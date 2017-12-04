@@ -1,6 +1,10 @@
 
  <?php include APPPATH.'views/common/header.php'?>
-
+ <style>
+     #dataTables-example_paginate, #dataTables-example_filter{
+         text-align: right;
+     }
+ </style>
 <div id="wrapper">
    <?php  include APPPATH.'views/home/nav.php' ?>
     <div id="page-wrapper">

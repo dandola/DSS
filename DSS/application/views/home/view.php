@@ -36,7 +36,7 @@
                                             <div role="form">
                                                 <div class="form-group">
                                                     <label>Họ và tên</label>
-                                                    <input class="form-control" required name="name">
+                                                    <input class="form-control" required name="name" id="fullname">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Giới tính</label>
